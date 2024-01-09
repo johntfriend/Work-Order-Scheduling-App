@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.springframework.ui.Model"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.GrantedAuthority"/>
+    <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.Query"/>
+    <fullyQualifiedTypeName name="javax.sql.DataSource"/>
+    <fullyQualifiedTypeName name="edu.sru.freilino.LoginPage.services.CustomUserDetailsService"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="edu.sru.freilino.LoginPage.repositories.UserRepository"/>
+    <fullyQualifiedTypeName name="java.util.regex.Pattern"/>
+    <fullyQualifiedTypeName name="java.util.regex.Matcher"/>
+    <fullyQualifiedTypeName name="edu.sru.freilino.LoginPage.services.MfaService"/>
+    <fullyQualifiedTypeName name="org.springframework.security.crypto.codec.Hex"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="edu.sru.freilino.LoginPage.repositories.MapCustomUserRepository"/>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
+    <fullyQualifiedTypeName name="edu.sru.freilino.LoginPage.model.User"/>
+    <fullyQualifiedTypeName name="org.springframework.security.crypto.encrypt.BytesEncryptor"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
+    <fullyQualifiedTypeName name="edu.sru.freilino.LoginPage.model.MfaAuthenticationHandler"/>
+    <fullyQualifiedTypeName name="edu.sru.freilino.LoginPage.model.MfaAuthentication"/>
+    <fullyQualifiedTypeName name="edu.sru.freilino.LoginPage.security.ValidPassword"/>
+    <fullyQualifiedTypeName name="org.springframework.validation.BindingResult"/>
+</qualifiedTypeNameHistroy>

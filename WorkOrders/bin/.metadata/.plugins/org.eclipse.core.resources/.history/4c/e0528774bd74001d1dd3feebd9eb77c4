@@ -1,0 +1,97 @@
+package edu.sru.freilino.LoginPage.model;
+
+import javax.persistence.*;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import edu.sru.freilino.LoginPage.security.ValidPassword;
+
+@Entity
+@Table(name = "users")
+
+/*
+ * This class lays out the structure for a User, and can be modified as you need for 
+ * your specific use case.
+ * 
+ * 
+ * */
+
+public class User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	// This is your primary key and serves as a unique identifier for each user
+	private long id;
+	
+	@Column(nullable = false, unique = true, length = 45)
+	// each of the @column tags sets up the definitions for what can be contained in them
+	private String email;
+	
+	@Column(nullable = false, length = 64)
+	private String password;
+	
+	@Column(name = "first_name", nullable = false, length = 30)
+	private String firstName;
+	
+	@Column(name = "last_name", nullable = false, length = 30)
+	private String lastName;
+	
+
+	public User(long id, String email, String password, String secret, String answer) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+	}
+	
+	public User() {
+		this.id = 1;
+		this.email = "";
+		this.password = "";
+	}
+	
+	// basic setters and getters
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		// stores encoded password instead of plain text
+		String encodedPassword = encoder.encode(password);
+		
+		this.password = encodedPassword;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+}

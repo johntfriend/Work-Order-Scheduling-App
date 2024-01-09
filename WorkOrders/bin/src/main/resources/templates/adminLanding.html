@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Admin Landing</title>
+
+</head>
+
+<body>
+    <style>
+
+    </style>
+    <div style="text-align:right">
+        <div sec:authorize="hasRole('ROLE_USER')">You're signed in! <strong>[[${username}]]</strong></div>
+        <form th:action="@{/}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+    <div style="text-align:center; font-family: Arial, Helvetica, sans-serif;">
+        <table style="margin-right:auto; margin-left: auto; padding-left: 30px; padding-right: 30px; padding-top: 0px;">
+            <thead>
+                <tr>
+                    <td>
+                        <h2 style="text-align: center; font-family: Arial, Helvetica, sans-serif;">Admin Menu: </h2>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <hr>
+                </tr>
+                <tr align="right">
+                    
+                    <td>
+                        <!-- Brings you to report incident page -->
+                        <button type="button" onclick="location.href='/admin/adminNewIncident'" id="reportIncident"
+                            style="font-family: Arial, Helvetica, sans-serif;">
+                            Report Incident
+                        </button>
+                    </td>
+                    <td>
+                        <!-- Admins should have the ability to assign reports -->
+                        <button type="button" onclick="location.href='/admin/adminIncidentList'" id="viewIncident"
+                            style="font-family: Arial, Helvetica, sans-serif;">
+                            View Active Incidents
+                        </button>
+                    </td>
+                    <td>
+                        <!-- Admins should have the ability to assign users roles if not already assigned -->
+                        <button type="button" onclick="location.href='/admin/adminLanding'" id="viewAccount"
+                            style="font-family: Arial, Helvetica, sans-serif;">
+                            Account List
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

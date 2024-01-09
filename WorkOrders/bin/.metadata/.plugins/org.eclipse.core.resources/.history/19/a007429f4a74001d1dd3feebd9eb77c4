@@ -1,0 +1,122 @@
+package edu.sru.freilino.LoginPage.security;
+
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authorization.AuthorizationDecision;
+import org.springframework.security.authorization.AuthorizationManager;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.encrypt.AesBytesEncryptor;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.keygen.KeyGenerators;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
+import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+
+import edu.sru.freilino.LoginPage.model.MfaAuthentication;
+import edu.sru.freilino.LoginPage.model.MfaAuthenticationHandler;
+import edu.sru.freilino.LoginPage.services.CustomUserDetailsService;
+
+
+@Configuration
+public class SecurityConfig {
+
+	@Bean
+	SecurityFilterChain web(HttpSecurity http,
+			AuthorizationManager<RequestAuthorizationContext> mfaAuthorizationManager) throws Exception {
+		MfaAuthenticationHandler mfaAuthenticationHandler = new MfaAuthenticationHandler("/second-factor");
+		// @formatter:off
+		http
+			.authorizeHttpRequests((authorize) -> authorize
+				.antMatchers("/favicon.ico", "/*.css", "/index", "/signup-form").permitAll()
+				.antMatchers("/second-factor", "/third-factor").access(mfaAuthorizationManager)
+				.antMatchers("/users").authenticated()
+				.anyRequest().authenticated()
+			)
+			.formLogin((form) -> form
+				.successHandler(mfaAuthenticationHandler)
+				.failureHandler(mfaAuthenticationHandler)
+			)
+			.exceptionHandling((exceptions) -> exceptions
+				.withObjectPostProcessor(new ObjectPostProcessor<ExceptionTranslationFilter>() {
+					@Override
+					public <O extends ExceptionTranslationFilter> O postProcess(O filter) {
+						filter.setAuthenticationTrustResolver(new MfaTrustResolver());
+						return filter;
+					}
+				})
+			)
+			.securityContext((context) -> context.requireExplicitSave(false));
+		// @formatter:on
+		return http.build();
+	}
+	
+	@Autowired
+	private DataSource dataSource;
+	// used to talk to database
+	
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new CustomUserDetailsService();
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	public DaoAuthenticationProvider authenticationProvider() {
+		
+		// sets properties of the Dao Authentication Provider
+		
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+		authProvider.setUserDetailsService(userDetailsService());
+		authProvider.setPasswordEncoder(passwordEncoder());
+		
+		return authProvider;
+	}
+	
+	@Bean
+	AuthorizationManager<RequestAuthorizationContext> mfaAuthorizationManager() {
+		return (authentication,
+				context) -> new AuthorizationDecision(authentication.get() instanceof MfaAuthentication);
+	}
+	
+	@Bean
+	AesBytesEncryptor encryptor() throws Exception {
+		KeyGenerator generator = KeyGenerator.getInstance("AES");
+		generator.init(128);
+		SecretKey key = generator.generateKey();
+		return new AesBytesEncryptor(key, KeyGenerators.secureRandom(12), AesBytesEncryptor.CipherAlgorithm.GCM);
+	}
+	
+	// for the third-factor
+		@Bean
+		PasswordEncoder encoder() {
+			return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		}
+		
+		@Bean
+		AuthenticationSuccessHandler successHandler() {
+			return new SavedRequestAwareAuthenticationSuccessHandler();
+		}
+		
+		@Bean
+		AuthenticationFailureHandler failureHandler() {
+			return new SimpleUrlAuthenticationFailureHandler("/login?error");
+		}
+}

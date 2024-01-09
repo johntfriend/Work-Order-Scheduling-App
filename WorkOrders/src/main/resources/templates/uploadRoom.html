@@ -1,0 +1,68 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<title>Room Upload</title>
+
+</head>
+<style>
+    button {border-radius: 12px;}
+</style>
+<body>
+    <div style="text-align:right">
+        <div style="text-align:center" sec:authorize="hasRole('ROLE_USER')">You're signed in! <strong>[[${username}]]</strong>
+            <div th:action="@{/}" method="post">
+                <button type="button" onclick="location.href='/group/profile'" id="userProfile" style="font-family: Arial, Helvetica, sans-serif;">Profile</button>
+                <button type="button" value="Logout" onclick="location.href='/'" style="font-family: Arial, Helvetica, sans-serif;"> Logout </button>
+                <button type="button" value="Back" style="font-family: Arial, Helvetica, sans-serif;" onclick="history.back()"> Back </button>
+            </div>
+        </div>
+    </div>
+<body>
+	<div id="wrapper">
+
+		<div id="heading">
+			<h1>Incident Report System</h1>
+		</div>
+		<div id="content">
+			<span class="nav-expand">
+				<button class="" id="hamburger" style="display:none" onclick="nav_open()">☰</button>
+			</span>
+			<br><br>
+			<h2>Upload file</h2>
+			<br><br>
+			*** Warning: Upload time varies with file size; larger files take more time.
+			<br><br>
+			<br><br>
+			<hr>
+			<form method="post" enctype="multipart/form-data" th:action="@{/excel/upload-room}">
+				<input required type="file" name="file" />
+				<br><br><br><br>
+				<button type="submit" class="buttons6">Upload File</button>
+			<br>
+			</form>
+			<br><br><br><br>
+		</div>
+	</div>
+
+	<div class="footer">
+		Copyright &copy; Slippery Rock University 2023
+	</div>
+	<script>
+		function nav_open() {
+			document.getElementById("content").style.marginLeft = "15%";
+			document.getElementById("mySidebar").style.width = "15%";
+			document.getElementById("mySidebar").style.display = "block";
+			document.getElementById("hamburger").style.display = "none";
+		}
+
+		function nav_close() {
+			document.getElementById("content").style.marginLeft = "0%";
+			document.getElementById("mySidebar").style.display = "none";
+			document.getElementById("hamburger").style.display = "block";
+		}
+	</script>
+</body>
+
+</html>

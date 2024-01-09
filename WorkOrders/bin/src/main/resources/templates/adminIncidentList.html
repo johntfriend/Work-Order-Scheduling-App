@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Admin Incidents</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <p>
+                Welcome!
+            </p>
+            <input type="submit" value="Sign Out" />
+        </form>
+    </div>
+    <div align="center">
+        <h1>List of Reports</h1>
+        <button type="button" onclick="location.href='/admin/adminNewIncident'" class="">Create New Incident</button>
+        <button type="button" onclick="location.href='/admin/adminLanding'" class="">Home</button>
+    </div>
+     
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Report ID</th>
+                    <th>E-mail</th>
+                    <th>Phone</th>
+                    <th>CC</th>
+                    <th>Assigned E-mail</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Severity</th>
+                    <th>Issue Type</th>
+                    <th>Department</th>
+                    <th>Building</th>
+                    <th>Room</th>
+                    <th>Description</th> 
+                    <th>Actions</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="incident: ${listIncidents}">
+                    <td th:text="${incident.report_id}">Report ID</td>
+                    <td th:text="${incident.email}">E-mail</td>
+                    <td th:text="${incident.phone}">Phone</td>
+                    <td th:text="${incident.cc}">CC</td>
+                    <td th:text="${incident.assign_email}">Assigned Email</td>
+                    <td th:text="${incident.status}">Status</td>
+                    <td th:text="${incident.date}">Date</td>
+                    <td th:text="${incident.severity}">Severity</td>
+                    <td th:text="${incident.issue_type}">Issue Type</td>
+                    <td th:text="${incident.department}">Department</td>
+                    <td th:text="${incident.building}">Building</td>
+                    <td th:text="${incident.room}">Room</td>
+                    <td th:text="${incident.description}">Description</td>
+                    <td>
+                    <a th:href="@{'/admin/incidentEdit/' + ${incident.report_id}}">Edit</a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a th:href="@{'/admin/incidentDelete/' + ${incident.report_id}}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

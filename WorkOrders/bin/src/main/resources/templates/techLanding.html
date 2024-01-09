@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Admin Landing</title>
+
+</head>
+
+<body>
+    <style>
+
+    </style>
+    <div style="text-align:right">
+        <!-- This should welome each idiviual user and display email -->
+        <h3 style="text-align: right; font-family: Arial, Helvetica, sans-serif;">Welcome: "Technician"!</h3>
+        <!-- This should send the user to the logout page -->
+        <!-- Currently not linked to a page -->
+        <button type="submit" onclick="" id="Sign Out">Sign Out:</button>
+    </div>
+    <div style="text-align:center; font-family: Arial, Helvetica, sans-serif;">
+        <table style="margin-right:auto; margin-left: auto; padding-left: 30px; padding-right: 30px; padding-top: 0px;">
+            <thead>
+                <tr>
+                    <td>
+                        <h2 style="text-align: center; font-family: Arial, Helvetica, sans-serif;">Technician Menu: </h2>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <hr>
+                </tr>
+                <tr align="right">
+                    
+                    <td>
+                        <!-- Brings you to report incident page -->
+                        <button type="button" onclick="location.href='newIncident'" id="reportIncident"
+                            style="font-family: Arial, Helvetica, sans-serif;">
+                            Report Incident
+                        </button>
+                    </td>
+                    <td>
+                        <!-- Tech should have the ability to complete and update reports -->
+                        <!-- Currently not linked to a page -->
+                        <button type="button" onclick="location.href=''" id="viewIncident"
+                            style="font-family: Arial, Helvetica, sans-serif;">
+                            View Assigned Incidents
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

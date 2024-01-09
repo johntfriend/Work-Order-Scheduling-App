@@ -1,0 +1,11 @@
+sru.edu.Group1.WorkOrders
+sru.edu.group1.workorders.controller
+sru.edu.group1.workorders.domain
+sru.edu.Group1.WorkOrders.domain
+sru.edu.group1.workorders.exceptions
+sru.edu.Group1.WorkOrders.repositories
+sru.edu.group1.workorders.repository
+sru.edu.group1.workorders.security
+sru.edu.group1.workorders.services
+sru.edu.Group1.WorkOrders.services
+sru.edu.Group1.WorkOrders.webtests

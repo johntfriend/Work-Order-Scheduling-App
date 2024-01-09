@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta  http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>User Incidents</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div style="text-align:right">
+        <div sec:authorize="hasRole('ROLE_USER')">You're signed in! <strong>[[${username}]]</strong></div>
+        <form th:action="@{/}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+    <div style="text-align:center; font-family: Arial, Helvetica, sans-serif;">
+        <table style="margin-right:auto; margin-left: auto; padding-left: 30px; padding-right: 30px; padding-top: 0px;">
+            <thead>
+                <tr>
+                    <td>
+                        <h2 style="text-align: center; font-family: Arial, Helvetica, sans-serif;">User Menu: </h2>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <hr>
+                </tr>
+                <tr>
+                    <td align="left">
+                        <button type="button" onclick="location.href='/group/newIncident'" id="reportIncident"
+                            style="font-family: Arial, Helvetica, sans-serif;">
+                            Report A Incident</button>
+                    </td>
+                    <td align="right">
+                        <button type="button" onclick="location.href='status'" id="viewIncident"
+                            style="font-family: Arial, Helvetica, sans-serif;">
+                            View Active Incidents</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

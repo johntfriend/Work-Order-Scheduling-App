@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Registration Failure</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+		<h1>
+					REGISTRATION FAILED; EMAIL OR PASSWORD IS NOT IN THE CORRECT STYLE <br>
+					
+					email must end with '@sru.edu'	<br> 
+					and passwords must be at least 6 characters long, and no longer than 15
+		</h1>
+		
+		<p>
+		<a th:href="@{/admin/createUser}">Click here to try again</a>
+		</p>
+		<p>
+		<a th:href="@{/admin/userList}">Click here to return to the user list</a>
+		</p>
+</body>
+</html>

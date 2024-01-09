@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Edit Incident Report</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<script>
+		
+	</script>
+	<style>
+		div h1 {
+			border-bottom: 4px Solid black;
+		}
+		
+		td, table {
+			padding: 10px;
+		}
+	</style>
+	<div class="container">
+		<div id="title">
+			<h1 style="color: darkgreen; text-align: left">Assign Incident</h1>
+		</div>
+		<form action="#" th:action="@{/manager/assignTech/{report_id}}"
+			th:object="${incidents}" method="post"
+			style="max-width: 600px; margin: 0 auto;">
+			<div id="table" class="m-3">
+				<table style="margin-right: auto; padding-left: 15px;">
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<div class="form-group row">
+									<label for="User">Report ID: </label> <input type="text"
+										id="report_id" name="report_id" class="form-control" required
+										th:field="*{report_id}" readonly="readonly">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+	                            <div><label for="${assign_email}">Available Technicians</label></div>
+            					<div th:each="technicians : ${allTechs}">
+            								<input type="radio" name="assign" th:value="${technicians.email}"> 
+            								<label th:for="${assign_email}" th:text="${technicians.email}"></label>
+                            	</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div>
+									<button type="submit" class="btn btn-primary" id="submit" th:name="assign"
+										style="font-family: Arial, Helvetica, sans-serif;">Submit</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

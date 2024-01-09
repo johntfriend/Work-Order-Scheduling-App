@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Active Incidents</title>
+</head>
+<div style="text-align:right">
+        <div sec:authorize="hasRole('ROLE_USER')">You're signed in! <strong>[[${username}]]</strong></div>
+        <form th:action="@{/}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+</div>
+<body>
+    <div style="text-align:center;"><h1>User Incidents:</h1></div>
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Report ID</th>
+                    <th>E-mail</th>
+                    <th>Phone</th>
+                    <th>CC</th>
+                    <th>Assigned E-mail</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Severity</th>
+                    <th>Issue Type</th>
+                    <th>Department</th>
+                    <th>Building</th>
+                    <th>Room</th>
+                    <th>Description</th> 
+                </tr>
+            </thead>
+            <tbody>
+                    <!--<div th:if="${incident.email} == '${username}'">-->
+                <tr th:each="incident: ${incidents}">
+                    <td>
+                    <span th:if="${incident.email} == '[[${username}]]'">working</span>
+                    <span th:unless="${incident.email} == '[[${username}]]'">not working</span>
+                    </td>
+                    <td th:text="${incident.report_id}">Report ID</td>
+                    <td th:text="${incident.email}">E-mail</td>
+                    <td th:text="${incident.phone}">Phone</td>
+                    <td th:text="${incident.cc}">CC</td>
+                    <td th:text="${incident.assign_email}">Assigned Email</td>
+                    <td th:text="${incident.status}">Status</td>
+                    <td th:text="${incident.date}">Date</td>
+                    <td th:text="${incident.severity}">Severity</td>
+                    <td th:text="${incident.issue_type}">Issue Type</td>
+                    <td th:text="${incident.department}">Department</td>
+                    <td th:text="${incident.building}">Building</td>
+                    <td th:text="${incident.room}">Room</td>
+                    <td th:text="${incident.description}">Description</td>
+                </tr>
+                  <!--  </div> -->
+                </span>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</body>
+
+</html>

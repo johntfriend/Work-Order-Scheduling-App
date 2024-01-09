@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Upload Success</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+</head>
+<script th:inline="javascript">
+/*<![CDATA[*/
+	var buildings = /*[[${Buildings}]]*/
+
+window.onload = function(){
+	var buildingSel = document.getElementById("building")
+	window.rooms = [];	
+	window.departments = [];
+	
+	for(x in buildings)
+		{
+		buildingSel.options[buildingSel.options.length] = new Option(buildings[x].building, buildings[x].id)
+		}
+}
+
+function loadBuildling(index)
+{
+	window.chosenBuilding = buildings[index - 1].building;
+	}
+
+function addRooms(currentRoom)
+{
+	var index = rooms.indexOf(currentRoom)
+	if(rooms.indexOf(currentRoom) !== -1)
+		{
+		rooms.splice(index, 1);
+		}
+	else
+		{
+		rooms.push(currentRoom);
+		rooms.sort();
+		}
+	
+	}
+	
+function addDepts(currentDepartments)
+{	
+	var index = departments.indexOf(currentDepartments)
+	if(departments.indexOf(currentDepartments) !== -1)
+		{
+		departments.splice(index, 1);
+		}
+	else
+		{
+		departments.push(currentDepartments);
+		departments.sort();
+		}
+	
+	}
+function combineData()
+{
+	if(departments.length == 0 || rooms.length == 0 || chosenBuilding == "")
+		{
+		window.alert("Please select a building to add departments and rooms to; a building must have at least 1 department and Room")
+		}
+	else
+		{
+			location.assign("http://localhost:8080/excel/combineData/" + rooms + "/" + departments + "/" + chosenBuilding);
+		}
+}
+/*]]>*/
+</script>
+<div style="text-align: left;">
+    <input type="button" value="Back" onclick="history.back()">
+</div>
+<div style="text-align: center;">
+    <button type="button" onclick="location.href='/group/profile'" id="userProfile"
+         style="font-family: Arial, Helvetica, sans-serif;">
+        Profile</button>
+</div>
+<div style="text-align:right">
+    <div>You're signed in! <strong>[[${username}]]</strong></div>
+    <form th:action="@{/}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+<body>
+    <div class="container text-center">
+        <h3>You have uploaded a file successfully! Now you can add departments and rooms to a specific building</h3>
+        
+         <div>
+        <label for="Buildings">Buildings: </label>   
+			<select name="building" id="building" onChange="loadBuildling(this.options[this.selectedIndex].value)">
+    		<option value = "" selected="selected">Select Building</option>
+ 			</select>	
+        <br><br>
+		Departments: <input th:each= "departments: ${Departments}"
+		type = "checkbox"
+		name = "DepartmentConnections"
+		id = "departments"
+		th:text= "${departments.department}"
+		th:onChange="addDepts([[${departments.getId}]])"
+		> 
+		<br><br>
+		Rooms: <input th:each= "rooms: ${Rooms}"
+		type = "checkbox"
+		name = "RoomsConnections"
+		id = "rooms"
+		th:text= "${rooms.roomNumbers}"
+		th:onChange="addRooms([[${rooms.getId}]])"
+		>
+		<br><br>
+       <button type="submit" class="btn btn-primary" id="submit" th:onClick="combineData()"
+			style="font-family: Arial, Helvetica, sans-serif;">Connect Chosen Building to Departments and Rooms </button>
+       
+        </div>
+                
+        
+
+        <h4 th:if="${user} == 'Admin'"><a th:href="@{/admin/Landing}">Click here for homepage!</a></h4>
+		<h4 th:if="${user} == 'Manager'"><a th:href="@{/manager/Landing}">Click here for homepage!</a></h4>
+        <h4><a th:href="@{/excel/uploadexcelfiles}">Click here to upload another file!</a></h4>
+    </div>
+     
+</body>
+</html>

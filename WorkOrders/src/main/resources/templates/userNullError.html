@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Verification Error</title>
+</head>
+<div style="text-align: left;">
+    <input type="button" value="Back" onclick="history.back()">
+</div>
+
+<div style="text-align:center; font-family: Sylfaen">
+<h1>
+	Your account Does not seem to exist within our system!
+</h1>
+</div>
+
+<div style="text-align:center; font-family: Sylfaen">
+	<p  style="font-size: 20">
+		If you wish to use our system: <a th:href="@{/login/register}"> Register Here! </a> <br>
+	</p>
+</div>

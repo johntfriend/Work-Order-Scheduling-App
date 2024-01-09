@@ -1,0 +1,74 @@
+package edu.sru.freilino.LoginPage.controller;
+
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import edu.sru.freilino.LoginPage.model.*;
+import edu.sru.freilino.LoginPage.repositories.*;
+
+/*
+ * This class provides mappings and URLs for all the methods listed here. If these interfere with your
+ * current URLs, change the string after @GetMapping
+ * 
+ * For example, if you need to have a different root, change @GetMapping("") to something like
+ * @GetMapping("index")
+ * 
+ * */
+
+
+@Controller
+public class AppController {
+
+	@Autowired
+	private UserRepository userRepository;
+	private static final int PASSWORDSIZE = 5;
+	
+	@GetMapping("/")
+	public String viewHomePage() {
+		return "index"; // references index.html in the src/main/resources/templates folder
+		
+	}
+	
+	@GetMapping("/register") // navigated to when user clicks the Register link
+	public String showRegistrationForm(Model model) {
+		model.addAttribute("user", new User());
+		
+		return "signup_form";
+	}
+	
+	@PostMapping("/process_register") // happens when user submits the registration form
+	public String processRegister(User user, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "signup_form";
+		}
+		
+		String pass = user.getPassword();
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		// stores encoded password instead of plain text
+		String encodedPassword = encoder.encode(pass);
+		user.setPassword(encodedPassword);
+		
+		userRepository.save(user);
+		return "registration_success";
+	}
+	
+	@GetMapping("/users") // requires login, shows list of users
+	public String listUsers(Model model) {
+		List<User> listUser = userRepository.findAll();
+		model.addAttribute("listUsers", listUser);
+		
+		return "users";
+	}
+	
+	
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Registration Failure Dupe</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+		<h1>
+					REGISTRATION FAILED; EMAIL ALREADY HAS AN ACCOUNT <br>
+		</h1>
+		
+		<p>
+		<a th:href="@{/admin/createUser}">Click here to try again</a>
+		</p>
+		<p>
+		<a th:href="@{/admin/userList}">Click here to return to the user list</a>
+		</p>
+</body>
+</html>

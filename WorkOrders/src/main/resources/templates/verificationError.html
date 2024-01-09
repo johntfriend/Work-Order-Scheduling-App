@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Verification Error</title>
+</head>
+<div style="text-align: left;">
+    <input type="button" value="Back" onclick="history.back()">
+</div>
+
+<div style="text-align:center; font-family: Sylfaen">
+<h1>
+	Your account seems to already be verified!
+</h1>
+</div>
+
+<div style="text-align:center; font-family: Sylfaen">
+	<p style="font-size: 18">
+		However if you have forgotten your password: <a th:href="@{/forgot_password}"> Click Here </a> <br>
+	</p>
+	
+	<p style="font-size: 18">
+		Or if you do remember your password: <a th:href="@{/}"> Click Here to Login! </a> <br>
+	</p>
+</div>

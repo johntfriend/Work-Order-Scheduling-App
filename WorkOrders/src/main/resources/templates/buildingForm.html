@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>New Build</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+</div>
+<div style="text-align:right">
+	<div sec:authorize="hasRole('ROLE_USER')">You're signed in! <strong>[[${username}]]</strong></div>
+	<button type="button" onclick="location.href='/admin/profile'" id="adminProfile"
+	style="font-family: Arial, Helvetica, sans-serif;">
+   Profile</button>
+	<form th:action="@{/}" method="post">
+		<input type="submit" value="Logout"/>
+	</form>
+</div>
+<div style="text-align:left">
+<input type="button" value="Back" onclick="history.back()">
+</div>
+	<div class="container text-center">
+		<div>
+			<h1>Building Registration - Add new Buildings!</h1>
+		</div>
+		<div>
+			<div>
+				<h1 style="color: darkgreen; text-align: left">New Building</h1>
+			</div>
+			<form method="post" action="#" th:action="@{/admin/buildingsSave}"
+				th:object="${building}" style="max-width: 600px; margin: 0 auto">
+				<div class="form-group row">
+					<label>Building: </label>
+					<div id="table" class="m-3">
+						<table style="margin-right: auto; padding-left: 15px;">
+							<tbody>
+								<tr>
+									<td><input type="text" class="form-control" required
+										th:field="*{building}" /></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary"
+					style="font-family: Arial, Helvetica, sans-serif;">Add
+					Building</button>
+
+				<button type="button" onclick="location.href='/admin/locationList'"
+					class="">Cancel</button>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+<div style="text-align:right">
+        <div sec:authorize="hasRole('ROLE_USER')">You're signed in! <strong>[[${username}]]</strong></div>
+        <form th:action="@{/}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+<body style="background-color: white;">
+    <style>
+        body {    
+    background-image: url("@{sru-logo.jpg}") no-repeat left fixed;     
+    background-size: 500px;
+        }
+        .issueButton {
+            border: solid 2px black;
+            border-style: groove;
+            color: black;
+            padding: 15px 40px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 30px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+    <div style="text-align:center; font-family: Arial, Helvetica, sans-serif;">
+        <h1>What is your issue type?</h1>
+    </div>
+    <div>
+        <table style="margin-right:auto; margin-left: auto; padding-left: 30px; padding-right: 30px; padding-top: 0px;">
+            <thead>
+                <tr>
+                    <td>
+                        <p style="font-weight:bolder; text-align: center; font-family: Arial, Helvetica, sans-serif;">
+                            Classroom/Meeting/Lab</p>
+                    </td>
+                    <td>
+                        <p style="font-weight:bolder; text-align: center; font-family: Arial, Helvetica, sans-serif;">
+                            E-Mail Services</p>
+                    </td>
+                    <td>
+                        <p style="font-weight:bolder; text-align: center; font-family: Arial, Helvetica, sans-serif;">
+                            Computer Software & <br>
+                            Hardware Issues</p>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align="center">
+                        <button type="button" onclick="location.href='classrooms'" class="issueButton classButton"
+                            id="Classroom">
+                            <img th:src="@{/185578.png}" width="150" height="150"></button>
+                    </td>
+                    <td align="center">
+                        <button type="button" onclick="location.href='email'" class="issueButton emailButton" id="Email">
+                            <img th:src="@{/3178158.png}" width="150" height="150"></button>
+                    </td>
+                    <td align="center">
+                        <button type="button" onclick="location.href='computer'" class="issueButton computerButton" id="Computer">
+                            <img th:src="@{/483141.png}" width="150" height="150"></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="font-size:medium; font-style:italic; text-align: center;">Report Technology issues in
+                            a class, lab <br>
+                            or meeting room</p>
+                    </td>
+                    <td>
+                        <p style="font-size:medium; font-style:italic; text-align: center;">Report issues with E-Mails
+                            or <br>
+                            Service Accounts</p>
+                    </td>
+                    <td>
+                        <p style="font-size:medium; font-style:italic; text-align: center;">Report issues with a
+                            computer or a <br>
+                            software issue</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="font-weight:bolder; text-align:center; font-family: Arial, Helvetica, sans-serif;">
+                            Campus Wide Applications</p>
+                    </td>
+                    <td>
+                        <p style="font-weight:bolder; text-align:center; font-family: Arial, Helvetica, sans-serif;">
+                            Wi-Fi Services </p>
+                    </td>
+                    <td>
+                        <p style="font-weight:bolder; text-align:center; font-family: Arial, Helvetica, sans-serif;">
+                            Phone & Fax Services</p>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <button type="button" onclick="location.href='campus'" class="issueButton campusButton">
+                            <img th:src="@{/1086581.png}" width="150" height="150"></button>
+                    </td>
+                    <td align="center">
+                        <button type="button" onclick="location.href='wifi'" class="issueButton networkButton">
+                            <img th:src="@{/2859724.png}" width="150" height="150"></button>
+                    </td>
+                    <td align="center">
+                        <button type="button" onclick="location.href='phoneandfax'" class="issueButton phoneButton">
+                            <img th:src="@{/1483281.png}" width="150" height="150"></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="font-size:medium; font-style:italic; text-align: center;">Report issues with Campus
+                            Services <br>
+                            (MySRU, Officer365, Banner, etc)</p>
+                    </td>
+                    <td>
+                        <p style="font-size:medium; font-style:italic; text-align: center;">Report issues with Campus
+                            Internet <br>
+                            Services</p>
+                    </td>
+                    <td>
+                        <p style="font-size:medium; font-style:italic; text-align: center;">Report issues with Phone or
+                            Fax</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="font-weight:bolder; text-align:center; font-family: Arial, Helvetica, sans-serif;">
+                            Data Reports & Requests</p>
+                    </td>
+                    <td>
+                        <p style="font-weight:bolder; text-align:center; font-family: Arial, Helvetica, sans-serif;">
+                            Server Storage & Database Help</p>
+                    </td>
+                    <td>
+                        <p style="font-weight:bolder; text-align:center; font-family: Arial, Helvetica, sans-serif;">
+                            User Accounts</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <button type="button" onclick="location.href='data'" class="issueButton dataButton">
+                            <img th:src="@{/2576507.png}" width="150" height="150"></button>
+                    </td>
+                    <td align="center">
+                        <button type="button" onclick="location.href='servers'" class="issueButton serverButton">
+                            <img th:src="@{/622339.png}" width="150" height="150"></button>
+                    </td>
+                    <td align="center">
+                        <button type="button" onclick="location.href='userissues'" class="issueButton accountButton">
+                            <img th:src="@{/747376.png}" width="150" height="150"></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="font-size:medium; font-style:italic; text-align: center;">Issues with data sheets or
+                            <br> information</p>
+                    </td>
+                    <td>
+                        <p style="font-size:medium; font-style:italic; text-align: center;">Server or Database Issues or
+                            <br>
+                            access trouble</p>
+                    </td>
+                    <td>
+                        <p style="font-size:medium; font-style:italic; text-align: center;">User Account Help <br>
+                            (Password Resets, etc)</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Profile Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<style>
+    button {border-radius: 12px;}
+</style>
+<body>
+    <div style="text-align:right">
+        <div style="text-align:center" sec:authorize="hasRole('ROLE_USER')">You're signed in! <strong>[[${username}]]</strong>
+            <div th:action="@{/}" method="post">
+                <button type="button" onclick="location.href='/group/profile'" id="userProfile" style="font-family: Arial, Helvetica, sans-serif;">Profile</button>
+                <button type="button" value="Logout" onclick="location.href='/'" style="font-family: Arial, Helvetica, sans-serif;"> Logout </button>
+                <button type="button" value="Back" style="font-family: Arial, Helvetica, sans-serif;" onclick="history.back()"> Back </button>
+            </div>
+        </div>
+    </div>
+
+<body>
+	<div style="text-align: center;">
+		<h1>My Assigned Incidents:</h1>
+	</div>
+	<div>
+		<table class="table table-striped table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>Report ID</th>
+					<th>E-mail</th>
+					<th>Phone</th>
+					<th>CC</th>
+					<th>Assigned E-mail</th>
+					<th>Status</th>
+					<th>Date</th>
+					<th>Severity</th>
+					<th>Issue Type</th>
+					<th>Department</th>
+					<th>Building</th>
+					<th>Room</th>
+					<th>Description</th>
+					<th>Change Status</th>
+					<th>Update</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="incident: ${incidents}">
+					<span th:if="${incident.assign_email} == ${username} and ${incident.status} != 'CLOSED'">
+						<td th:text="${incident.report_id}">Report ID</td>
+						<td th:text="${incident.email}">E-mail</td>
+						<td th:text="${incident.phone}">Phone</td>
+						<td th:text="${incident.cc}">CC</td>
+						<td th:text="${incident.assign_email}">Assigned Email</td>
+						<td th:text="${incident.status}">Status</td>
+						<td th:text="${incident.date}">Date</td>
+						<td th:text="${incident.severity}">Severity</td>
+						<td th:text="${incident.issue_type}">Issue Type</td>
+						<td th:text="${incident.department}">Department</td>
+						<td th:text="${incident.building}">Building</td>
+						<td th:text="${incident.room}">Room</td>
+						<td th:text="${incident.description}">Description</td>
+						<div th:switch="${incident.status}"> 
+  							<td th:case="'OPEN'">
+  								<a th:href="@{'/tech/activeIncident/' + ${incident.report_id}}">Active Incident</a>
+  							</td>
+  							<td th:case="'ACTIVE'">
+  								<a th:href="@{'/tech/closeIncident/' + ${incident.report_id}}">Close Incident</a>
+  							</td>
+						</div>
+						<td><a th:href="@{'/tech/updateIncident/' + ${incident.report_id}}">Update</a></td>
+					</span>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div style="text-align: center;">
+		<h1>Current Unassigned Incidents:</h1>
+	</div>
+	<div>
+		<table class="table table-striped table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>Report ID</th>
+					<th>E-mail</th>
+					<th>Phone</th>
+					<th>CC</th>
+					<th>Assigned E-mail</th>
+					<th>Status</th>
+					<th>Date</th>
+					<th>Severity</th>
+					<th>Issue Type</th>
+					<th>Department</th>
+					<th>Building</th>
+					<th>Room</th>
+					<th>Description</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="incident: ${incidents}">
+					<span th:if="${incident.assign_email == 'UNASSIGNED'}">
+					<td th:text="${incident.report_id}">Report ID</td>
+					<td th:text="${incident.email}">E-mail</td>
+					<td th:text="${incident.phone}">Phone</td>
+					<td th:text="${incident.cc}">CC</td>
+					<td th:text="${incident.assign_email}">Assigned Email</td>
+					<td th:text="${incident.status}">Status</td>
+					<td th:text="${incident.date}">Date</td>
+					<td th:text="${incident.severity}">Severity</td>
+					<td th:text="${incident.issue_type}">Issue Type</td>
+					<td th:text="${incident.department}">Department</td>
+					<td th:text="${incident.building}">Building</td>
+					<td th:text="${incident.room}">Room</td>
+					<td th:text="${incident.description}">Description</td>
+					<td><a th:href="@{'/tech/selfAssign/' + ${incident.report_id}}">Self Assign</a></td>
+					</span>
+					<span th:unless="${incident.assign_email == 'UNASSIGNED'}"></span>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

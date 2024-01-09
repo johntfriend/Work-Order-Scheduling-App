@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Admin Locations</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div style="text-align:right">
+        <div sec:authorize="hasRole('ROLE_USER')">You're signed in! <strong>[[${username}]]</strong></div>
+        <button type="button" onclick="location.href='/admin/profile'" id="userProfile"
+        style="font-family: Arial, Helvetica, sans-serif;">
+       Profile</button>
+        <form th:action="@{/}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+    <div style="text-align:left">
+    <input type="button" value="Back" onclick="history.back()">
+    </div>
+    <div align="center">
+        <h1>List of Locations</h1>
+        <button type="button" onclick="location.href='/admin/building'" class="">Create New Building</button>
+        <button type="button" onclick="location.href='/admin/rooms'" class="">Create New Room</button>
+        <button type="button" onclick="location.href='/admin/department'" class="">Create New Department</button>
+        <button type="button" onclick="location.href='/admin/Landing'" class="">Home</button>
+    </div>
+     
+    <div>
+        <table align="center" class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Buildings</th> 
+					<th>Actions</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="buildings: ${building}">
+                    <td th:text="${buildings.building}">Buildings</td>
+                    <td>
+                    <a th:href="@{'/admin/buildingDelete/' + ${buildings.id}}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table align="center" class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Rooms</th> 
+                    <th>Actions</th>  
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="rooms : ${room}">
+                    <td th:text="${rooms.roomNumbers}">Rooms</td>
+                    <td>
+                    <a th:href="@{'/admin/roomDelete/' + ${rooms.id}}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table align="center" class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Departments</th> 
+                    <th>Actions</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="departments : ${department}">
+                    <td th:text="${departments.department}">Departments</td>
+                    <td>
+                    <a th:href="@{'/admin/departmentDelete/' + ${departments.id}}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

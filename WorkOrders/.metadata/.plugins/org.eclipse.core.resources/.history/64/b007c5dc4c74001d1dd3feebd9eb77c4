@@ -1,0 +1,5 @@
+package edu.sru.freilino.LoginPage.security;
+
+public class PasswordValidator implements ConstraintValidator<ValidPassword, String>{
+
+}
